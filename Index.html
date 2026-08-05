@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PerfectPresent - Aprende Inglés</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #6366f1;
+            --accent-hover: #4f46e5;
+            --text: #f8fafc;
+            --success: #22c55e;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header h1 {
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Ratio 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .audio-btn {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            transition: background 0.2s;
+        }
+
+        .audio-btn:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .exercise-item {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        input[type="text"] {
+            background-color: #334155;
+            border: 2px solid #475569;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 120px;
+            text-align: center;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+
+        .check-btn {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: opacity 0.2s;
+        }
+
+        .check-btn:hover {
+            opacity: 0.9;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            font-weight: bold;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+
+        .correct { color: var(--success); }
+        .incorrect { color: var(--danger); }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>Perfect Present 🚀</h1>
+        <p>Módulo 1: Introducción al Present Perfect</p>
+    </header>
+
+    <!-- Sección de Explicación y Video -->
+    <div class="card">
+        <h2>1. ¿Cuándo usamos el Presente Perfecto?</h2>
+        <p>Utilizamos el <strong>Present Perfect</strong> para hablar de experiencias o acciones que ocurrieron en un momento no especificado del pasado y que tienen relevancia en el presente.</p>
+        
+        <p><strong>Estructura:</strong> Sujeto + Have / Has + Verbo en Participio Pasado</p>
+        
+        <button class="audio-btn" onclick="playAudio('I have lived in London for three years.')">
+            🔊 Escuchar Ejemplo: "I have lived in London for three years."
+        </button>
+
+        <h3>Explicación en Video:</h3>
+        <div class="video-container">
+            <!-- Video educativo de muestra desde YouTube -->
+            <iframe src="https://www.youtube-nocookie.com/embed/o1_0Gz4uIGo" title="Explicación Present Perfect" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <!-- Sección de Ejercicio Interactivo -->
+    <div class="card">
+        <h2>2. ¡Pon a prueba lo aprendido!</h2>
+        <p>Completa las oraciones usando <strong>have/has</strong> y el verbo entre paréntesis en participio pasado:</p>
+
+        <form id="quiz-form">
+            <div class="exercise-item">
+                1. She <input type="text" id="q1" placeholder="has visited"> (visit) Paris three times.
+            </div>
+            
+            <div class="exercise-item">
+                2. They <input type="text" id="q2" placeholder="have finished"> (finish) their university project.
+            </div>
+
+            <div class="exercise-item">
+                3. I <input type="text" id="q3" placeholder="have seen"> (see) that movie already.
+            </div>
+
+            <button type="button" class="check-btn" onclick="checkAnswers()">Verificar Respuestas</button>
+        </form>
+
+        <div id="feedback" class="feedback"></div>
+    </div>
+</div>
+
+<script>
+    // Función para reproducir sonido/pronunciación usando la API del navegador
+    function playAudio(text) {
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'en-US';
+        utterance.rate = 0.9; // Velocidad un poco más lenta para aprendizaje
+        window.speechSynthesis.speak(utterance);
+    }
+
+    // Función para evaluar los ejercicios
+    function checkAnswers() {
+        const q1 = document.getElementById('q1').value.trim().toLowerCase();
+        const q2 = document.getElementById('q2').value.trim().toLowerCase();
+        const q3 = document.getElementById('q3').value.trim().toLowerCase();
+
+        let score = 0;
+
+        if(q1 === '' || q2 === '' || q3 === ''){
+            alert("Favor de completar las respuestas")
+            return;
+        }
+
+        if (q1 === 'has visited') score++;
+        if (q2 === 'have finished') score++;
+        if (q3 === 'have seen') score++;
+
+        const feedbackDiv = document.getElementById('feedback');
+
+        if (score === 3) {
+            feedbackDiv.className = 'feedback correct';
+            feedbackDiv.innerText = '🎉 ¡Excelente trabajo! Todas las respuestas son correctas.';
+            playAudio('Great job! All answers are correct.');
+        } else {
+            feedbackDiv.className = 'feedback incorrect';
+            feedbackDiv.innerText = `Obtuviste ${score} de 3 correctas. ¡Revisa e inténtalo de nuevo!`;
+        }
+    }
+</script>
+
+</body>
+</html>
