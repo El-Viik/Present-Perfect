@@ -1,229 +1,337 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PerfectPresent - Aprende Inglés</title>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent: #6366f1;
-            --accent-hover: #4f46e5;
-            --text: #f8fafc;
-            --success: #22c55e;
-            --danger: #ef4444;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text);
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .container {
-            max-width: 800px;
-            width: 100%;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        header h1 {
-            color: var(--accent);
-            font-size: 2.5rem;
-            margin-bottom: 5px;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
-        }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* Ratio 16:9 */
-            height: 0;
-            overflow: hidden;
-            border-radius: 8px;
-            margin-top: 15px;
-        }
-
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
-
-        .audio-btn {
-            background-color: var(--accent);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-            transition: background 0.2s;
-        }
-
-        .audio-btn:hover {
-            background-color: var(--accent-hover);
-        }
-
-        .exercise-item {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-        }
-
-        input[type="text"] {
-            background-color: #334155;
-            border: 2px solid #475569;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 1rem;
-            width: 120px;
-            text-align: center;
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--accent);
-            outline: none;
-        }
-
-        .check-btn {
-            background-color: var(--success);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: opacity 0.2s;
-        }
-
-        .check-btn:hover {
-            opacity: 0.9;
-        }
-
-        .feedback {
-            margin-top: 15px;
-            font-weight: bold;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-
-        .correct { color: var(--success); }
-        .incorrect { color: var(--danger); }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Christmas Challenge | Drag & Drop</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --pine: #174b3a;
+      --pine-dark: #103629;
+      --berry: #b52f43;
+      --cream: #fffaf0;
+      --gold: #e7b84b;
+    }
+    body {
+      min-height: 100vh;
+      color: #24332d;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,.85) 0 2px, transparent 3px),
+        radial-gradient(circle at 80% 25%, rgba(255,255,255,.7) 0 2px, transparent 3px),
+        linear-gradient(145deg, #e8f2eb, #f8f2e6);
+      background-size: 100px 100px, 140px 140px, auto;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+    .app-shell { max-width: 980px; }
+    .hero {
+      color: white;
+      background: linear-gradient(135deg, var(--pine), var(--pine-dark));
+      border-radius: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 12px 30px rgba(16,54,41,.18);
+    }
+    .hero::after {
+      content: "✦  ❄  ✧  ❄  ✦";
+      position: absolute;
+      right: 1rem; bottom: .6rem;
+      color: rgba(255,255,255,.18);
+      font-size: clamp(1.5rem, 5vw, 3rem);
+      letter-spacing: .4rem;
+      pointer-events: none;
+    }
+    .eyebrow { color: #d8e9dc; letter-spacing: .16em; font-size: .72rem; font-weight: 700; }
+    .panel {
+      background: rgba(255,255,255,.94);
+      border: 1px solid rgba(23,75,58,.1);
+      border-radius: 1rem;
+      box-shadow: 0 8px 24px rgba(31,54,43,.07);
+    }
+    .word-bank {
+      display: flex; flex-wrap: wrap; gap: .6rem;
+      min-height: 58px;
+    }
+    .word-chip {
+      border: 1px solid #c9d9ce;
+      color: var(--pine-dark);
+      background: #f1f7f2;
+      border-radius: 999px;
+      padding: .55rem .95rem;
+      font-weight: 650;
+      cursor: grab;
+      user-select: none;
+      touch-action: manipulation;
+      transition: transform .15s, box-shadow .15s, background .15s;
+    }
+    .word-chip:hover { transform: translateY(-2px); box-shadow: 0 4px 10px #174b3a18; }
+    .word-chip:active { cursor: grabbing; }
+    .word-chip.selected { background: #dceee1; border-color: var(--pine); outline: 2px solid #174b3a30; }
+    .word-chip.used { opacity: .35; cursor: not-allowed; text-decoration: line-through; }
+    .question-card {
+      border: 1px solid #e4eae5;
+      border-radius: .85rem;
+      padding: .9rem 1rem;
+      background: white;
+      height: 100%;
+    }
+    .question-number {
+      width: 27px; height: 27px; display: inline-grid; place-items: center;
+      border-radius: 50%; background: #eaf3ec; color: var(--pine);
+      font-size: .8rem; font-weight: 800; flex: 0 0 auto;
+    }
+    .drop-slot {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 112px; min-height: 38px; margin: 0 .2rem;
+      padding: .3rem .75rem; border: 2px dashed #a9bdb0;
+      border-radius: .55rem; background: #f7faf7; color: #66786d;
+      font-weight: 700; vertical-align: middle; cursor: pointer;
+      transition: background .15s, border-color .15s;
+    }
+    .drop-slot.drag-over { background: #e1f1e5; border-color: var(--pine); }
+    .drop-slot.filled { border-style: solid; border-color: #9eb9a5; background: #edf6ef; color: var(--pine-dark); }
+    .drop-slot.correct { border-color: #27834c; background: #e1f4e7; color: #176536; }
+    .drop-slot.incorrect { border-color: #c94b56; background: #fff0f0; color: #a52b37; }
+    .question-text { line-height: 1.8; }
+    .muted-note { color: #718078; font-size: .85rem; }
+    .btn-berry { color: white; background: var(--berry); border-color: var(--berry); }
+    .btn-berry:hover { color: white; background: #982638; border-color: #982638; }
+    .result-score { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 850; color: var(--pine); line-height: 1; }
+    .progress { height: 9px; background: #e8eee9; }
+    .progress-bar { background: var(--pine); }
+    @media (max-width: 575.98px) {
+      .hero { border-radius: 1rem; }
+      .question-card { padding: .8rem; }
+      .drop-slot { min-width: 95px; }
+      .action-buttons .btn { width: 100%; }
+    }
+  </style>
 </head>
 <body>
-
-<div class="container">
-    <header>
-        <h1>Perfect Present 🚀</h1>
-        <p>Módulo 1: Introducción al Present Perfect</p>
+  <main class="container py-4 py-md-5 app-shell">
+    <header class="hero p-4 p-md-5 mb-4 text-center">
+      <div class="eyebrow mb-2">A LITTLE HOLIDAY CHALLENGE</div>
+      <h1 class="display-5 fw-bold mb-2">🎄 Christmas Challenge</h1>
+      <p class="mb-3 text-white-50">Complete the sentences and spread some Christmas cheer!</p>
+      <span class="badge rounded-pill text-bg-light px-3 py-2">10 questions · Beginner English</span>
     </header>
 
-    <!-- Sección de Explicación y Video -->
-    <div class="card">
-        <h2>1. ¿Cuándo usamos el Presente Perfecto?</h2>
-        <p>Utilizamos el <strong>Present Perfect</strong> para hablar de experiencias o acciones que ocurrieron en un momento no especificado del pasado y que tienen relevancia en el presente.</p>
-        
-        <p><strong>Estructura:</strong> Sujeto + Have / Has + Verbo en Participio Pasado</p>
-        
-        <button class="audio-btn" onclick="playAudio('I have lived in London for three years.')">
-            🔊 Escuchar Ejemplo: "I have lived in London for three years."
-        </button>
+    <section class="panel p-3 p-md-4 mb-4">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+        <h2 class="h5 fw-bold mb-0">🎁 Word bank</h2>
+        <span class="small text-secondary" id="remainingCount">10 words remaining</span>
+      </div>
+      <p class="muted-note mb-3">Drag a word into a blank, or tap a word and then tap the blank. You can move words between answers.</p>
+      <div class="word-bank" id="wordBank" aria-label="Available words"></div>
+    </section>
 
-        <h3>Explicación en Video:</h3>
-        <div class="video-container">
-            <!-- Video educativo de muestra desde YouTube -->
-            <iframe src="https://www.youtube-nocookie.com/embed/o1_0Gz4uIGo" title="Explicación Present Perfect" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-        </div>
-    </div>
+    <section class="panel p-3 p-md-4">
+      <div class="d-flex justify-content-between align-items-center flex-wrap gap-2 mb-3">
+        <h2 class="h5 fw-bold mb-0">✏️ Complete the sentences</h2>
+        <span class="small text-secondary" id="progressText">0 of 10 completed</span>
+      </div>
+      <div class="progress mb-4" role="progressbar" aria-label="Completion progress">
+        <div class="progress-bar" id="progressBar" style="width:0%"></div>
+      </div>
+      <div class="row g-3" id="questions"></div>
 
-    <!-- Sección de Ejercicio Interactivo -->
-    <div class="card">
-        <h2>2. ¡Pon a prueba lo aprendido!</h2>
-        <p>Completa las oraciones usando <strong>have/has</strong> y el verbo entre paréntesis en participio pasado:</p>
+      <div class="action-buttons d-flex flex-column flex-sm-row gap-2 mt-4">
+        <button class="btn btn-success btn-lg flex-grow-1" id="checkBtn" disabled>Check my answers ✓</button>
+        <button class="btn btn-outline-secondary btn-lg" id="resetBtn" type="button">Start again ↻</button>
+      </div>
+      <div id="result" class="mt-4" aria-live="polite"></div>
+    </section>
 
-        <form id="quiz-form">
-            <div class="exercise-item">
-                1. She <input type="text" id="q1" placeholder="has visited"> (visit) Paris three times.
-            </div>
-            
-            <div class="exercise-item">
-                2. They <input type="text" id="q2" placeholder="have finished"> (finish) their university project.
-            </div>
+    <p class="text-center muted-note mt-4 mb-0">Made for a little Christmas fun ✨</p>
+  </main>
 
-            <div class="exercise-item">
-                3. I <input type="text" id="q3" placeholder="have seen"> (see) that movie already.
-            </div>
+  <script>
+    // Edita aquí las palabras y oraciones del ejercicio.
+    const questionsData = [
+      { answer: "Santa", sentence: "flies around the world on Christmas Eve." },
+      { answer: "snow", sentence: "covers the houses during winter." },
+      { answer: "reindeer", sentence: "pull Santa's sleigh." },
+      { answer: "Christmas", sentence: "is celebrated on December 25th." },
+      { answer: "gifts", sentence: "are placed under the Christmas tree." },
+      { answer: "star", sentence: "shines at the top of the tree." },
+      { answer: "tree", sentence: "is decorated with colorful lights." },
+      { answer: "cookies", sentence: "are left out for Santa." },
+      { answer: "sleigh", sentence: "travels through the night sky." },
+      { answer: "stockings", sentence: "are hung near the fireplace." }
+    ];
 
-            <button type="button" class="check-btn" onclick="checkAnswers()">Verificar Respuestas</button>
-        </form>
+    const words = questionsData.map(q => q.answer);
+    const placements = Array(questionsData.length).fill(null);
+    let selectedWord = null;
+    let submitted = false;
 
-        <div id="feedback" class="feedback"></div>
-    </div>
-</div>
+    const wordBank = document.getElementById("wordBank");
+    const questionsEl = document.getElementById("questions");
+    const remainingCount = document.getElementById("remainingCount");
+    const progressText = document.getElementById("progressText");
+    const progressBar = document.getElementById("progressBar");
+    const checkBtn = document.getElementById("checkBtn");
+    const resultEl = document.getElementById("result");
 
-<script>
-    // Función para reproducir sonido/pronunciación usando la API del navegador
-    function playAudio(text) {
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'en-US';
-        utterance.rate = 0.9; // Velocidad un poco más lenta para aprendizaje
-        window.speechSynthesis.speak(utterance);
+    function render() {
+      renderWordBank();
+      renderQuestions();
+      updateProgress();
     }
 
-    // Función para evaluar los ejercicios
-    function checkAnswers() {
-        const q1 = document.getElementById('q1').value.trim().toLowerCase();
-        const q2 = document.getElementById('q2').value.trim().toLowerCase();
-        const q3 = document.getElementById('q3').value.trim().toLowerCase();
+    function renderWordBank() {
+      wordBank.innerHTML = "";
+      const usedWords = placements.filter(Boolean);
 
-        let score = 0;
+      words.forEach(word => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "word-chip";
+        chip.textContent = word;
+        chip.draggable = !submitted && !usedWords.includes(word);
+        chip.disabled = submitted || usedWords.includes(word);
+        if (usedWords.includes(word)) chip.classList.add("used");
+        if (selectedWord === word) chip.classList.add("selected");
 
-        if(q1 === '' || q2 === '' || q3 === ''){
-            alert("Favor de completar las respuestas")
+        chip.addEventListener("click", () => {
+          if (submitted || usedWords.includes(word)) return;
+          selectedWord = selectedWord === word ? null : word;
+          renderWordBank();
+        });
+
+        chip.addEventListener("dragstart", event => {
+          if (submitted || usedWords.includes(word)) {
+            event.preventDefault();
             return;
-        }
+          }
+          selectedWord = word;
+          event.dataTransfer.setData("text/plain", word);
+          event.dataTransfer.effectAllowed = "move";
+        });
+        wordBank.appendChild(chip);
+      });
 
-        if (q1 === 'has visited') score++;
-        if (q2 === 'have finished') score++;
-        if (q3 === 'have seen') score++;
-
-        const feedbackDiv = document.getElementById('feedback');
-
-        if (score === 3) {
-            feedbackDiv.className = 'feedback correct';
-            feedbackDiv.innerText = '🎉 ¡Excelente trabajo! Todas las respuestas son correctas.';
-            playAudio('Great job! All answers are correct.');
-        } else {
-            feedbackDiv.className = 'feedback incorrect';
-            feedbackDiv.innerText = `Obtuviste ${score} de 3 correctas. ¡Revisa e inténtalo de nuevo!`;
-        }
+      remainingCount.textContent = `${words.length - usedWords.length} words remaining`;
     }
-</script>
 
+    function renderQuestions() {
+      questionsEl.innerHTML = "";
+      questionsData.forEach((question, index) => {
+        const col = document.createElement("div");
+        col.className = "col-12 col-lg-6";
+
+        const card = document.createElement("div");
+        card.className = "question-card";
+
+        const row = document.createElement("div");
+        row.className = "d-flex align-items-start gap-2";
+
+        const number = document.createElement("span");
+        number.className = "question-number";
+        number.textContent = index + 1;
+
+        const text = document.createElement("div");
+        text.className = "question-text";
+
+        const slot = document.createElement("button");
+        slot.type = "button";
+        slot.className = "drop-slot";
+        slot.textContent = placements[index] || "Drop word";
+        slot.setAttribute("aria-label", `Answer for sentence ${index + 1}`);
+        if (placements[index]) slot.classList.add("filled");
+        if (submitted) {
+          slot.disabled = true;
+          slot.classList.add(placements[index] === question.answer ? "correct" : "incorrect");
+          slot.textContent = placements[index] || "No answer";
+        }
+
+        slot.addEventListener("click", () => {
+          if (submitted) return;
+          if (selectedWord) {
+            placeWord(selectedWord, index);
+          } else if (placements[index]) {
+            placements[index] = null;
+            render();
+          }
+        });
+
+        slot.addEventListener("dragover", event => {
+          if (submitted) return;
+          event.preventDefault();
+          slot.classList.add("drag-over");
+        });
+        slot.addEventListener("dragleave", () => slot.classList.remove("drag-over"));
+        slot.addEventListener("drop", event => {
+          if (submitted) return;
+          event.preventDefault();
+          slot.classList.remove("drag-over");
+          const word = event.dataTransfer.getData("text/plain") || selectedWord;
+          if (word) placeWord(word, index);
+        });
+
+        text.append(slot, document.createTextNode(" " + question.sentence));
+        row.append(number, text);
+        card.appendChild(row);
+        col.appendChild(card);
+        questionsEl.appendChild(col);
+      });
+    }
+
+    function placeWord(word, targetIndex) {
+      if (submitted || !words.includes(word)) return;
+      // If the word was already placed elsewhere, clear its previous slot.
+      const previousIndex = placements.indexOf(word);
+      if (previousIndex !== -1) placements[previousIndex] = null;
+      // If the target already had a word, it returns automatically to the bank.
+      placements[targetIndex] = word;
+      selectedWord = null;
+      resultEl.innerHTML = "";
+      render();
+    }
+
+    function updateProgress() {
+      const completed = placements.filter(Boolean).length;
+      progressText.textContent = `${completed} of ${questionsData.length} completed`;
+      progressBar.style.width = `${completed / questionsData.length * 100}%`;
+      checkBtn.disabled = completed !== questionsData.length || submitted;
+    }
+
+    function checkAnswers() {
+      if (placements.some(answer => !answer) || submitted) return;
+      submitted = true;
+      const correct = questionsData.filter((q, i) => placements[i] === q.answer).length;
+      const percent = Math.round(correct / questionsData.length * 100);
+      const message = correct === 10 ? "Perfect! You're a Christmas superstar! 🎅" :
+        correct >= 7 ? "Great job! Keep the Christmas spirit going! 🎄" :
+        correct >= 4 ? "Nice try! A little more practice and you'll get there. ⭐" :
+        "Good effort! Give it another try and learn as you go. ❄️";
+
+      render();
+      resultEl.innerHTML = `
+        <div class="rounded-4 p-4 text-center" style="background:#edf5ef;border:1px solid #d5e6d9">
+          <div class="result-score">${correct}<span class="fs-3 text-secondary">/10</span></div>
+          <div class="fw-bold fs-5 mt-2">${percent}% correct</div>
+          <p class="mb-3 mt-2">${message}</p>
+          <div class="d-flex flex-wrap justify-content-center gap-2">
+            <span class="badge text-bg-success px-3 py-2">${correct} correct</span>
+            <span class="badge text-bg-danger px-3 py-2">${questionsData.length - correct} incorrect</span>
+          </div>
+          <button class="btn btn-berry mt-4 px-4" id="tryAgainBtn" type="button">Try again ↻</button>
+        </div>`;
+      document.getElementById("tryAgainBtn").addEventListener("click", resetExercise);
+    }
+
+    function resetExercise() {
+      placements.fill(null);
+      selectedWord = null;
+      submitted = false;
+      resultEl.innerHTML = "";
+      render();
+    }
+
+    checkBtn.addEventListener("click", checkAnswers);
+    document.getElementById("resetBtn").addEventListener("click", resetExercise);
+    render();
+  </script>
 </body>
 </html>
